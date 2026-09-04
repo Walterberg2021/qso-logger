@@ -15,17 +15,91 @@
   </head>
 
   <body>
-    <header>
-      <h1>QSO Logger</h1>
-      <p>Amateur Radio Contact Map</p>
-    </header>
+    <div class="page-container">
+      <header>
+        <p class="terminal-label">VE3RER // QSO SYSTEM</p>
+        <h1>QSO Logger</h1>
+        <p>Amateur radio contact logging and mapping</p>
+      </header>
 
-    <main>
-      <div id="map"></div>
-    </main>
+      <main class="dashboard">
+        <section class="qso-panel">
+          <h2>Add QSO</h2>
+
+          <form id="qso-form">
+            <div class="form-group">
+              <label for="callsign">Callsign</label>
+              <input
+                type="text"
+                id="callsign"
+                name="callsign"
+                placeholder="VE3ABC"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="grid">Grid locator</label>
+              <input
+                type="text"
+                id="grid"
+                name="grid"
+                placeholder="FN03"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="band">Band</label>
+                <select id="band" name="band">
+                  <option value="80m">80 m</option>
+                  <option value="40m">40 m</option>
+                  <option value="20m" selected>20 m</option>
+                  <option value="15m">15 m</option>
+                  <option value="10m">10 m</option>
+                  <option value="2m">2 m</option>
+                  <option value="70cm">70 cm</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="mode">Mode</label>
+                <select id="mode" name="mode">
+                  <option value="SSB">SSB</option>
+                  <option value="CW">CW</option>
+                  <option value="FT8">FT8</option>
+                  <option value="FM">FM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="rst">RST</label>
+              <input type="text" id="rst" name="rst" placeholder="59" />
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="4"
+                placeholder="Optional notes..."
+              ></textarea>
+            </div>
+
+            <button type="submit">Add QSO</button>
+          </form>
+        </section>
+
+        <section class="map-panel">
+          <div id="map"></div>
+        </section>
+      </main>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <script src="js/app.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>

@@ -7,6 +7,6 @@ L.tileLayer(
     }
 ).addTo(map);
 
-const stationMarker = L.marker([43.7, -79.4]).addTo(map);
+const myStationMarker = L.marker([43.7, -79.4]).addTo(map);
 
-stationMarker.bindPopup("<b>VE3RER</b><br>Home station");
+myStationMarker.bindPopup("<b>VE3RER</b><br>Home station");

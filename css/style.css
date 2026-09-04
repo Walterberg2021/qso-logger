@@ -1,13 +1,221 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
 }
 
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    padding: 24px;
+
+    font-family: Consolas, "Courier New", monospace;
+    color: #d8dee9;
+
+    background-color: #181b20;
+}
+
+/* Main application container */
+
+.page-container {
+    width: 100%;
+    max-width: 1400px;
+    min-height: calc(100vh - 48px);
+
+    margin: 0 auto;
+    padding: 28px;
+
+    background-color: #20242b;
+
+    border: 1px solid #343a45;
+    border-radius: 8px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Header */
+
 header {
+    margin-bottom: 24px;
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -1px;
+
+    color: #f0f3f6;
+}
+
+header p {
+    margin: 7px 0 0;
+
+    font-size: 13px;
+
+    color: #7f8997;
+}
+
+/* Main */
+
+main {
+    width: 100%;
+}
+
+/* Dashboard */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+
+    gap: 20px;
+
+    align-items: stretch;
+}
+
+/* QSO Panel */
+
+.qso-panel {
     padding: 20px;
+
+    background-color: #252a32;
+
+    border: 1px solid #363d49;
+    border-radius: 6px;
+}
+
+.qso-panel h2 {
+    margin: 0 0 20px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #6ee7b7;
+}
+
+/* Form */
+
+#qso-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 500;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    color: #9099a8;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    font: inherit;
+    font-size: 14px;
+
+    color: #e4e9ef;
+
+    background-color: #1b1f25;
+
+    border: 1px solid #3b424e;
+    border-radius: 4px;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #606977;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+
+    border-color: #55cba0;
+
+    box-shadow: 0 0 0 2px rgba(85, 203, 160, 0.12);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Two-column form row */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+/* Button */
+
+#qso-form button {
+    padding: 11px 14px;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    color: #10231c;
+
+    background-color: #6ee7b7;
+
+    border: none;
+    border-radius: 4px;
+
+    transition:
+        background-color 0.15s ease,
+        transform 0.05s ease;
+}
+
+#qso-form button:hover {
+    background-color: #82edc3;
+}
+
+#qso-form button:active {
+    transform: translateY(1px);
+}
+
+/* Map */
+
+.map-panel {
+    min-width: 0;
 }
 
 #map {
-    height: 600px;
     width: 100%;
+    height: 100%;
+    min-height: 600px;
+
+    border: 1px solid #3b424e;
+    border-radius: 6px;
+
+    overflow: hidden;
 }

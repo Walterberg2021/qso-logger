@@ -27,10 +27,8 @@ function getBandFromFrequency(frequency) {
     if (frequency >= 28.0 && frequency <= 29.7) return "10m";
     if (frequency >= 50 && frequency <= 54) return "6m";
     if (frequency >= 144 && frequency <= 148) return "2m";
-    if (frequency >= 219 && frequency <= 225) return "1.25m";
     if (frequency >= 430 && frequency <= 450) return "70cm";
     if (frequency >= 902 && frequency <= 928) return "33cm";
-    if (frequency >= 1240 && frequency <= 1300) return "23cm";
 
     return null;
 }

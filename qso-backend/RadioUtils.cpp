@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <regex>
 #include "Coordinates.h"
 #include "RadioUtils.h"
 
@@ -38,9 +39,73 @@ string getBandFromFrequency(double frq) {
     return "unknown";
 }
 
-//Coordinates gridToCoordinates(const string& grid) {
-//    
-//}
+Coordinates gridToCoordinates(const string& grid) {
+    regex gridPattern("^[A-Ra-r]{2}([0-9]{2}([A-Xa-x]{2}([0-9]{2})?)?)?$");
+
+    if (!regex_match(grid, gridPattern))
+    {
+        cout << "Invalid grid\n";
+        return { NAN, NAN };
+    }
+    Coordinates coord;
+
+    coord.latitude = 0;
+    coord.longitude = 0;
+
+    string normGrid = grid;
+    for (char& ch : normGrid)
+    {
+        ch = static_cast<char>(toupper(ch));
+    }
+
+    coord.longitude = (normGrid[0] - 'A') * 20;
+    coord.latitude = (normGrid[1] - 'A') * 10;
+
+    if (normGrid.length() >= 4) {
+
+        coord.longitude += (normGrid[2] - '0') * 2;
+        coord.latitude += (normGrid[3] - '0') * 1;
+
+        if (normGrid.length() >= 6) {
+
+            coord.longitude += (normGrid[4] - 'A') * (2.0 / 24.0);
+            coord.latitude += (normGrid[5] - 'A') * (1.0 / 24.0);
+
+            if (normGrid.length() == 8) {
+
+                coord.longitude += (normGrid[6] - '0') * ((2.0 / 24.0) / 10.0);
+                coord.latitude += (normGrid[7] - '0') * ((1.0 / 24.0) / 10.0);
+            }
+        }
+    }
+
+    switch (normGrid.length()) {
+    case 2:
+        coord.longitude += 10.0;
+        coord.latitude += 5.0;
+        break;
+
+    case 4:
+        coord.longitude += 1.0;
+        coord.latitude += 0.5;
+        break;
+
+    case 6:
+        coord.longitude += (2.0 / 24.0) / 2.0;
+        coord.latitude += (1.0 / 24.0) / 2.0;
+        break;
+
+    case 8:
+        coord.longitude += ((2.0 / 24.0) / 10.0) / 2.0;
+        coord.latitude += ((1.0 / 24.0) / 10.0) / 2.0;
+        break;
+    }
+
+    coord.longitude -= 180;
+    coord.latitude -= 90;
+
+    return coord;
+}
 
 string coordinatesToGrid(const Coordinates& coordinates, int precision) {
 
@@ -119,4 +184,35 @@ string coordinatesToGrid(const Coordinates& coordinates, int precision) {
         }
     }
 
+}
+
+double calculateDistance(const Coordinates& from, const Coordinates& to) {
+    
+    if (isnan(from.latitude) || isnan(from.longitude) ||
+        isnan(to.latitude) || isnan(to.longitude))
+    {
+        return NAN;
+    }
+
+    if (from.latitude < -90 || from.latitude > 90 ||
+        to.latitude < -90 || to.latitude > 90 ||
+        from.longitude < -180 || from.longitude > 180 ||
+        to.longitude < -180 || to.longitude > 180)
+    {
+        return NAN;
+    }
+
+    double pi = 3.14159265358979323846;
+    double r = 6371.0; // km
+
+    Coordinates radFrom = { (from.latitude * pi / 180), (from.longitude * pi / 180)};
+    Coordinates radTo = { (to.latitude * pi / 180), (to.longitude * pi / 180) };
+
+    double dLatRad = radTo.latitude - radFrom.latitude;
+    double dLonRad = radTo.longitude - radFrom.longitude;
+
+    double a = pow(sin(dLatRad / 2.0), 2) + cos(radFrom.latitude) * cos(radTo.latitude) * pow(sin(dLonRad / 2.0), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    return r * c;
 }

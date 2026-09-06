@@ -10,8 +10,7 @@ Coordinates gridToCoordinates(const std::string& grid);
 
 std::string coordinatesToGrid(const Coordinates& coordinates, int precision = 4);
 
-double calculateDistance(const Coordinates& from, const Coordinates& to
-);
+double calculateDistance(const Coordinates& from, const Coordinates& to);
 
 struct BandRange {
     double minFrequency;

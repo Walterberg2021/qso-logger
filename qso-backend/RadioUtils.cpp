@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "Coordinates.h"
 #include "RadioUtils.h"
 
@@ -37,10 +38,85 @@ string getBandFromFrequency(double frq) {
     return "unknown";
 }
 
-Coordinates gridToCoordinates(const string& grid) {
+//Coordinates gridToCoordinates(const string& grid) {
+//    
+//}
 
-}
+string coordinatesToGrid(const Coordinates& coordinates, int precision) {
 
-string coordinatesToGrid(const Coordinates& coordinates) {
+    if (coordinates.latitude < -90.0 || coordinates.latitude > 90.0)
+    {
+        return "Invalid";
+    }
+
+    if (coordinates.longitude < -180.0 || coordinates.longitude > 180.0)
+    {
+        return "Invalid";
+    }
+
+    if (precision != 2 &&
+        precision != 4 &&
+        precision != 6 &&
+        precision != 8)
+    {
+        return "Invalid";
+    }
+
+    double lon = coordinates.longitude + 180;
+    double lat = coordinates.latitude + 90;
+
+    int lonField = lon / 20;
+    double lonRem = fmod(lon, 20.0);
+
+    int latField = lat / 10;
+    double latRem = fmod(lat, 10.0);
+
+    char lonChar = 'A' + lonField;
+    char latChar = 'A' + latField;
+
+    string code = "";
+    code += lonChar;
+    code += latChar;
+
+    if (precision == 2) {
+        return code;
+    }
+    else {
+        int lonNum =  lonRem/ 2.0;
+        lonRem = fmod(lonRem, 2.0);
+
+        int latNum = latRem / 1.0;
+        latRem = fmod(latRem, 1.0);
+
+        code += to_string(lonNum);
+        code += to_string(latNum);
+
+        if (precision == 4) {
+            return code;
+        }
+        else {
+            int lonSub = lonRem / (2.0 / 24.0);
+            lonRem = fmod(lonRem, (2.0 / 24.0));
+
+            int latSub = latRem / (1.0 / 24.0);
+            latRem = fmod(latRem, (1.0 / 24.0));
+
+            code += ('a' + lonSub);
+            code += ('a' + latSub);
+
+            if (precision == 6) {
+                return code;
+            }
+            else {
+                int lonExtended = lonRem / ((2.0 / 24.0) / 10);
+                int latExtended = latRem / ((1.0 / 24.0) / 10);
+
+                code += to_string(lonExtended);
+                code += to_string(latExtended);
+
+                return code;
+            }
+        }
+    }
 
 }

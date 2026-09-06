@@ -8,7 +8,7 @@ std::string getBandFromFrequency(double frequency);
 
 Coordinates gridToCoordinates(const std::string& grid);
 
-std::string coordinatesToGrid(const Coordinates& coordinates);
+std::string coordinatesToGrid(const Coordinates& coordinates, int precision = 4);
 
 double calculateDistance(const Coordinates& from, const Coordinates& to
 );

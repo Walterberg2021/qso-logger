@@ -124,10 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="QSO.cpp" />
     <ClCompile Include="RadioUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="QSO.h" />
     <ClInclude Include="RadioUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

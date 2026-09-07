@@ -216,3 +216,4 @@ double calculateDistance(const Coordinates& from, const Coordinates& to) {
 
     return r * c;
 }
+

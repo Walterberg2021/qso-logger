@@ -21,12 +21,18 @@
     <ClCompile Include="RadioUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QSO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RadioUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QSO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

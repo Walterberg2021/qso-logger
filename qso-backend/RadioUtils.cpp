@@ -26,7 +26,7 @@ const BandRange bands[] = {
     {902.0000, 928.0000, "33 cm"}
 };
 
-const int bandCount = size(bands);
+const int bandCount = std::size(bands);
 
 string getBandFromFrequency(double frq) {
 

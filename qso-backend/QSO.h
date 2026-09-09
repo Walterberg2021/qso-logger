@@ -35,6 +35,8 @@ private:
 	double distance = 0.0;
 	double frequency = 0.0;
 
+	bool corLocationKnown = false;
+
 public:
 
 	QSO() = default;
@@ -55,6 +57,8 @@ public:
 	double getDistance() const;
 	double getFrequency() const;
 
+	bool getCorLocationKnown() const;
+
 	void setCorCall(const std::string& corCall);
 	void setMode(const std::string& mode);
 	void setTxRst(const std::string& txRst);
@@ -67,6 +71,11 @@ public:
 	void setQsoDateTime(const DateTime& qsoDateTime);
 
 	void setFrequency(double frequency);
+
+	void setCorLocationKnown(bool state);
+
+
+	bool validate() const;
 };
 
 

@@ -36,6 +36,7 @@ private:
 	double frequency = 0.0;
 
 	bool corLocationKnown = false;
+	bool corLocationFromGrid = false;
 
 public:
 
@@ -58,6 +59,7 @@ public:
 	double getFrequency() const;
 
 	bool getCorLocationKnown() const;
+	bool getCorLocationFromGrid() const;
 
 	void setCorCall(const std::string& corCall);
 	void setMode(const std::string& mode);
@@ -73,9 +75,12 @@ public:
 	void setFrequency(double frequency);
 
 	void setCorLocationKnown(bool state);
+	void setCorLocationFromGrid(bool state);
 
 
 	bool validate() const;
+
+	void updateDerivedFields();
 };
 
 

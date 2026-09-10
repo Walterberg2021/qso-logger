@@ -24,6 +24,7 @@ double QSO::getDistance() const { return distance; }
 double QSO::getFrequency() const { return frequency; }
 
 bool QSO::getCorLocationKnown() const { return corLocationKnown; }
+bool QSO::getCorLocationFromGrid() const { return corLocationFromGrid; }
 
 void QSO::setCorCall(const string& corCall) { this->corCall = corCall; }
 void QSO::setMode(const string& mode) { this->mode = mode; }
@@ -37,6 +38,7 @@ void QSO::setQsoDateTime(const DateTime& qsoDateTime) { this->qsoDateTime = qsoD
 void QSO::setFrequency(double frequency) { this->frequency = frequency; }
 
 void QSO::setCorLocationKnown(bool state) { corLocationKnown = state; }
+void QSO::setCorLocationFromGrid(bool state) { corLocationFromGrid = state; }
 
 
 bool QSO::validate() const {
@@ -46,7 +48,7 @@ bool QSO::validate() const {
 		ret = false;
 	}
 
-	if (getBandFromFrequency(frequency) == "Invalid") {
+	if (getBandFromFrequency(frequency) == "unknown") {
 		ret = false;
 	}
 	
@@ -65,4 +67,20 @@ bool QSO::validate() const {
 	}
 
 	return ret;
+}
+
+void QSO::updateDerivedFields() {
+	band = getBandFromFrequency(frequency);
+	myGrid = coordinatesToGrid(myCoordinates);
+
+	if (corLocationFromGrid && corLocationKnown) {
+		corCoordinates = gridToCoordinates(corGrid);
+	}
+	else if (corLocationFromGrid == false && corLocationKnown) {
+		corGrid = coordinatesToGrid(corCoordinates);
+	}
+
+	if (corLocationKnown == true) {
+		distance = calculateDistance(myCoordinates, corCoordinates);
+	}
 }

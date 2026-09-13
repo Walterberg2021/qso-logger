@@ -84,7 +84,21 @@ qsoForm.addEventListener("submit", function (event) {
     const qsoJson = JSON.stringify(qso);
     console.log(qsoJson);
 
+    console.log("About to send:", qsoJson);
 
+    fetch("http://localhost:8080/api/qso", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: qsoJson
+    })
+    .then(response => {
+        console.log("Server status:", response.status);
+    })
+    .catch(error => {
+        console.error("Fetch failed:", error);
+    });
 
 });
 

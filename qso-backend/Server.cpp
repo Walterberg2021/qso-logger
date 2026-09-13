@@ -42,6 +42,7 @@ void qsoPostHandler(const httplib::Request& req, httplib::Response& res) {
         if (qso.validate()) {
             qso.updateDerivedFields();
             res.status = 201;
+            cout << "201" << endl;
         }
         else {
             res.status = 400;

@@ -2,6 +2,7 @@
 #include "QSO.h"
 #include "external/httplib.h"
 #include "external/json.hpp"
+#include <filesystem>
 
 using namespace std;
 
@@ -64,6 +65,8 @@ void qsoPostHandler(const httplib::Request& req, httplib::Response& res) {
 void startServer()
 {
     httplib::Server server;
+
+    cout << filesystem::current_path() << endl;
 
     server.Get("/api/test",
         [](const httplib::Request& req, httplib::Response& res)
